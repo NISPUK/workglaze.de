@@ -41,15 +41,20 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
   }
-
+  
   // === YOUTUBE-VIDEOVORSCHAU ===
   const videoContainer = document.querySelector(".video-container");
   const preview = document.getElementById("youtubePreview");
   const video = document.getElementById("demoVideo");
   if (videoContainer && preview && video) {
-    // Klick auf Container => lade echte 'src' in iframe, blende Vorschau aus
+    // Klick auf Container => lade echte 'src' in iframe mit autoplay Parameter, blende Vorschau aus
     videoContainer.addEventListener("click", () => {
-      video.src = video.getAttribute("data-src");
+      // Hole die ursprüngliche data-src und füge autoplay Parameter hinzu
+      const videoSrc = video.getAttribute("data-src");
+      // Füge autoplay=1 Parameter hinzu für sofortige Wiedergabe
+      video.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+      
+      // Blende Vorschau aus
       preview.style.opacity = "0";
       setTimeout(() => {
         preview.style.display = "none";
